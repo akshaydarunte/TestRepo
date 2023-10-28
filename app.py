@@ -8,7 +8,10 @@ def translate_sentence(sentence, target_language):
 
 def detect_language(sentence):
     translator = Translator()
-    detected_language = translator.detect(sentence).lang
+    try:
+        detected_language = translator.detect(sentence).lang
+    except AttributeError:
+        return "Unable to detect language"
     return detected_language
 
 # Add a background color gradient with sky blue effect
@@ -30,7 +33,10 @@ target_language = st.selectbox("Select a target language:", list(LANGUAGES.value
 
 if st.button("Translate"):
     detected_language = detect_language(input_sentence)
-    st.write(f"Detected Language: {LANGUAGES[detected_language]}")
+    if detected_language == "Unable to detect language":
+        st.write("Language detection failed. Please check your input or try specifying the language.")
+    else:
+        st.write(f"Detected Language: {LANGUAGES[detected_language]}")
     
     translated_sentence = translate_sentence(input_sentence, target_language)
     st.write(f"Translated sentence: {translated_sentence}")
