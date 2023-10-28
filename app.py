@@ -11,6 +11,18 @@ def detect_language(sentence):
     detected_language = translator.detect(sentence).lang
     return detected_language
 
+# Add a background color gradient with sky blue effect
+st.markdown(
+    """
+    <style>
+    body {
+        background-image: linear-gradient(to bottom, #87CEEB, #00688B);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("Language Translation App")
 
 input_sentence = st.text_area("Enter a sentence to translate:")
